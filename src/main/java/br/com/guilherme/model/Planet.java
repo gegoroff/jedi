@@ -8,19 +8,17 @@ import org.springframework.data.cassandra.core.mapping.Table;
 public class Planet {
 
 	@PrimaryKey
-	private Integer id;
+	private String id;
 	private String name;
 	private String climate;
 	private String terrain;
-	@Column("filmappearances")
+	@Column("film_appearances")
 	private Integer filmAppearances;
 
 	public Planet() {
 	}
 
-//
-//	@JsonCreator
-	public Planet(final Integer id, final String name, final String climate, final String terrain,
+	public Planet(final String id, final String name, final String climate, final String terrain,
 			final Integer filmAppearances) {
 		this.id = id;
 		this.name = name;
@@ -29,11 +27,11 @@ public class Planet {
 		this.filmAppearances = filmAppearances;
 	}
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

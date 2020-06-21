@@ -2,7 +2,7 @@ package br.com.guilherme.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.MediaType;
+import org.springframework.data.cassandra.repository.config.EnableReactiveCassandraRepositories;
 import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
@@ -11,7 +11,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import br.com.guilherme.handler.PlanetHandler;
 
 @Configuration
-//@EnableReactiveCassandraRepositories
+@EnableReactiveCassandraRepositories
 public class ApplicationConfig /* extends AbstractReactiveCassandraConfiguration */ {
 
 //	@Value("${cassandra.contactpoints}")
@@ -25,9 +25,10 @@ public class ApplicationConfig /* extends AbstractReactiveCassandraConfiguration
 
 	@Bean
 	public RouterFunction<ServerResponse> route(PlanetHandler planetHandler) {
-		return RouterFunctions.route(
-				RequestPredicates.POST("/planet").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)),
-				planetHandler::save);
+		return RouterFunctions
+//				.route(RequestPredicates.POST("/planet").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)),
+//						planetHandler::save)
+				.route(RequestPredicates.GET("/planets"), planetHandler::findAll);
 	}
 
 //	@Override
