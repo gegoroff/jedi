@@ -8,9 +8,6 @@ public class JediApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JediApplication.class, args);
-
-//		StarWarsWebClient gwc = new StarWarsWebClient();
-//	    System.out.println(gwc.getResult());
 	}
 
 }

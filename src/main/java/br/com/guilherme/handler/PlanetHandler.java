@@ -32,39 +32,28 @@ public class PlanetHandler {
 		CompletableFuture<Mono<Planet>> compl = future.toFuture().whenCompleteAsync((r, ex) -> {
 			if (ex == null) {
 				planet.setFilmAppearances(r.getResults().get(0).getFilms().length);
-//				planetRepository.save(planet);
 			}
 		}).thenApplyAsync(e -> planetRepository.save(planet));
 		return compl.get();
-
-//		planet.setFilmAppearances();
-//		return planetRepository.save(planet);
-
-//		return request.bodyToMono(Planet.class).doFirst(planet -> {
-//			planet.setId(UUID.randomUUID().toString());
-//			planetRepository.save(planet);
-//		}).flatMap(planet -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
-//				.body(BodyInserters.fromValue(planet)));
 	}
 
 	public Mono<ServerResponse> findById(ServerRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		final Mono<Planet> planet = planetRepository.findById(request.pathVariable("id"));
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(planet, Planet.class);
 	}
 
 	public Mono<ServerResponse> findByName(ServerRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		final Mono<Planet> planets = planetRepository.findByName(request.pathVariable("name"));
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(planets, Planet.class);
 	}
 
 	public Mono<ServerResponse> delete(ServerRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		final Mono<Void> deleted = planetRepository.deleteById(request.pathVariable("id"));
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(deleted, Void.class);
 	}
 
 	public Mono<ServerResponse> findAll(ServerRequest request) {
-//		return null;
-		Flux<Planet> planets = planetRepository.findAll();
+		final Flux<Planet> planets = planetRepository.findAll();
 		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(planets, Planet.class);
 	}
 }

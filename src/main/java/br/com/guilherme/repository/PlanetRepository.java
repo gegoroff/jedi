@@ -10,14 +10,12 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface PlanetRepository extends ReactiveCassandraRepository<Planet, Integer> {
 
-//	Mono<Planet> save(Planet planet);
-//
-//	Mono<Planet> findById(String id);
+	@AllowFiltering
+	Mono<Planet> findById(String id);
 
 	@AllowFiltering
 	Mono<Planet> findByName(String name);
 
-//	Mono<Void> delete(String id);
-
-//	Flux<List<Planet>> findAll();
+	@AllowFiltering
+	Mono<Void> deleteById(String id);
 }
