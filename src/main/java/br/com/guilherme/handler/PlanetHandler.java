@@ -28,7 +28,7 @@ public class PlanetHandler {
 	public Mono<Planet> save(@RequestBody Planet planet) throws InterruptedException, ExecutionException {
 		planet.setId(UUID.randomUUID().toString());
 		final StarWarsWebClient client = new StarWarsWebClient();
-		Mono<PlanetListDto> future = client.findPlanetByNameAndCountAppearances(planet.getName());
+		Mono<PlanetListDto> future = client.findPlanetByName(planet.getName());
 		CompletableFuture<Mono<Planet>> compl = future.toFuture().whenCompleteAsync((r, ex) -> {
 			if (ex == null) {
 				planet.setFilmAppearances(r.getResults().get(0).getFilms().length);

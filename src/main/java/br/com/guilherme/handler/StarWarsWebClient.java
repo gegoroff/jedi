@@ -10,7 +10,7 @@ public class StarWarsWebClient {
 
 	private static final String BASE_URL = "https://swapi.dev/api";
 
-	public Mono<PlanetListDto> findPlanetByNameAndCountAppearances(String name) {
+	public Mono<PlanetListDto> findPlanetByName(String name) {
 		final WebClient client = WebClient.create(BASE_URL);
 		return client.get().uri("/planets/?search=" + name).accept(MediaType.APPLICATION_JSON).exchange()
 				.flatMap(res -> res.bodyToMono(PlanetListDto.class));
