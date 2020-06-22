@@ -56,4 +56,10 @@ public class PlanetHandler {
 		final Flux<Planet> planets = planetRepository.findAll();
 		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(planets, Planet.class);
 	}
+
+	public Mono<ServerResponse> findAllSwApiPlanets(ServerRequest request) {
+		final StarWarsWebClient client = new StarWarsWebClient();
+		Mono<PlanetListDto> planets = client.findAllPlanets();
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(planets, Planet.class);
+	}
 }

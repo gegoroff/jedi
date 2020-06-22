@@ -21,6 +21,7 @@ public class ApplicationConfig {
 				.andRoute(RequestPredicates.GET("/planets"), planetHandler::findAll)
 				.andRoute(RequestPredicates.GET("/planet/{id}"), planetHandler::findById)
 				.andRoute(RequestPredicates.GET("/planet/filterByName/{name}"), planetHandler::findByName)
-				.andRoute(RequestPredicates.GET("/planet/{id}/delete"), planetHandler::delete);
+				.andRoute(RequestPredicates.GET("/planet/{id}/delete"), planetHandler::delete)
+				.andRoute(RequestPredicates.GET("/swapi/planets"), planetHandler::findAllSwApiPlanets);
 	}
 }

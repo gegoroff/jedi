@@ -110,4 +110,10 @@ public class PlanetHandlerTest {
 				.expectBodyList(Planet.class).hasSize(2).returnResult().getResponseBody()
 				.containsAll(Arrays.asList(planet, planet2));
 	}
+
+	@Test
+	public void shouldListAllPlanetsFromSwApiTest() {
+		client.get().uri("/swapi/planets").accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk()
+				.expectBody().jsonPath("$.count").exists().jsonPath("$.results").exists();
+	}
 }

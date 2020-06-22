@@ -6,7 +6,9 @@ public class PlanetDto {
 
 	private String[] films;
 
-	private Integer count;
+	private String climate;
+
+	private String terrain;
 
 	public String getName() {
 		return name;
@@ -24,11 +26,20 @@ public class PlanetDto {
 		this.films = films;
 	}
 
-	public Integer getCount() {
-		return count;
+	public String getClimate() {
+		return climate;
 	}
 
-	public void setCount(Integer count) {
-		this.count = count;
+	public void setClimate(String climate) {
+		this.climate = climate;
 	}
+
+	public String getTerrain() {
+		return terrain;
+	}
+
+	public void setTerrain(String terrain) {
+		this.terrain = terrain;
+	}
+
 }

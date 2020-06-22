@@ -15,4 +15,10 @@ public class StarWarsWebClient {
 		return client.get().uri("/planets/?search=" + name).accept(MediaType.APPLICATION_JSON).exchange()
 				.flatMap(res -> res.bodyToMono(PlanetListDto.class));
 	}
+
+	public Mono<PlanetListDto> findAllPlanets() {
+		final WebClient client = WebClient.create(BASE_URL);
+		return client.get().uri("/planets/").accept(MediaType.APPLICATION_JSON).exchange()
+				.flatMap(res -> res.bodyToMono(PlanetListDto.class));
+	}
 }
