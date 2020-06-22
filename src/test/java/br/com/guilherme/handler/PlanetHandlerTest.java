@@ -34,6 +34,7 @@ public class PlanetHandlerTest {
 	@Test
 	public void planetShouldBeSavedTest() {
 		final Planet planetSaved = new Planet();
+		planetSaved.setId("cc4de310-15b3-4c74-a471-65f6d827ea25");
 		planetSaved.setName("Tatooine");
 		planetSaved.setTerrain("Planicies");
 		planetSaved.setClimate("Tropical");

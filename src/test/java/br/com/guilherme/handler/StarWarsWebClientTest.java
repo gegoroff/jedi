@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import br.com.guilherme.service.dto.PlanetListDto;
 import reactor.core.publisher.Mono;
 
-class StarWarsWebClientTest {
+public class StarWarsWebClientTest {
 
 	@Test
 	void findPlanetByNametest() {
