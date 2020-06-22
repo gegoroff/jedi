@@ -34,7 +34,6 @@ public class PlanetHandlerTest {
 	@Test
 	public void planetShouldBeSavedTest() {
 		final Planet planetSaved = new Planet();
-		planetSaved.setId("cc4de310-15b3-4c74-a471-65f6d827ea25");
 		planetSaved.setName("Tatooine");
 		planetSaved.setTerrain("Planicies");
 		planetSaved.setClimate("Tropical");
@@ -48,8 +47,7 @@ public class PlanetHandlerTest {
 		planet.setClimate("Tropical");
 		client.post().uri("/planet").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
 				.body(Mono.just(planet), Planet.class).exchange().expectStatus().isOk().expectBody().jsonPath("$.id")
-				.isEqualTo("cc4de310-15b3-4c74-a471-65f6d827ea25").jsonPath("$.name").isEqualTo("Tatooine")
-				.jsonPath("$.filmAppearances").isEqualTo(5);
+				.isNotEmpty().jsonPath("$.name").isEqualTo("Tatooine").jsonPath("$.filmAppearances").isNotEmpty();
 	}
 
 	@Test

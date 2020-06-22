@@ -1,13 +1,9 @@
 package br.com.guilherme.handler;
 
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -24,17 +20,21 @@ public class PlanetHandler {
 	@Autowired
 	private PlanetRepository planetRepository;
 
-	@PostMapping(value = "/planet")
-	public Mono<Planet> save(@RequestBody Planet planet) throws InterruptedException, ExecutionException {
-		planet.setId(UUID.randomUUID().toString());
-		final StarWarsWebClient client = new StarWarsWebClient();
-		Mono<PlanetListDto> future = client.findPlanetByName(planet.getName());
-		CompletableFuture<Mono<Planet>> compl = future.toFuture().whenCompleteAsync((r, ex) -> {
-			if (ex == null) {
-				planet.setFilmAppearances(r.getResults().get(0).getFilms().length);
-			}
-		}).thenApplyAsync(e -> planetRepository.save(planet));
-		return compl.get();
+	public Mono<ServerResponse> save(ServerRequest request) {
+		final Mono<Planet> monoPlanet = request.bodyToMono(Planet.class).flatMap(planet -> {
+			final StarWarsWebClient client = new StarWarsWebClient();
+			Mono<PlanetListDto> monoDto = client.findPlanetByName(planet.getName());
+			return monoDto.flatMap(dto -> {
+				if (dto.getCount() > 0) {
+					planet.setFilmAppearances(dto.getResults().get(0).getFilms().length);
+				} else {
+					planet.setFilmAppearances(0);
+				}
+				planet.setId(UUID.randomUUID().toString());
+				return planetRepository.save(planet);
+			});
+		});
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(monoPlanet, Planet.class);
 	}
 
 	public Mono<ServerResponse> findById(ServerRequest request) {
