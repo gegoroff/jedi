@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cassandradb-deployment
+spec:
+  selector:
+    matchLabels:
+      app: cassandradb
+  template:
+    metadata:
+      labels:
+        app: cassandradb
+    spec:
+      containers:
+      - name: cassandradb
+        image: guilhermeegoroff/jedi-cassandradb:latest
+        ports:
+        - containerPort: 7000
+        - containerPort: 7001
+        - containerPort: 9042
+        - containerPort: 9160
