@@ -4,16 +4,16 @@ Api reativa utilizando Spring WebFlux
 
 ### Containers
 
-docker build -t guilhermeegoroff/jedi .
-docker build -t guilhermeegoroff/jedi-cassandradb ./cassandradb
+- docker build -t guilhermeegoroff/jedi .
+- docker build -t guilhermeegoroff/jedi-cassandradb ./cassandradb
 
 ### Kubernetes
 
-kubectl apply -f ./k8s/cassandradb/deployment.yaml
-kubectl apply -f ./k8s/cassandradb/service.yaml
-kubectl apply -f ./k8s/api/deployment.yaml
+- kubectl apply -f ./k8s/cassandradb/deployment.yaml
+- kubectl apply -f ./k8s/cassandradb/service.yaml
+- kubectl apply -f ./k8s/api/deployment.yaml
 
-### DataBase para rodar local
+### Run database local
 
 Cassandra 3.11
 
