@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: gegoroffjedi 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gegoroffjedi
+  template:
+    metadata:
+      labels:
+        app: gegoroffjedi 
+    spec:
+      containers:
+        - name: gegoroffjedi 
+          image: guilhermeegoroff.azurecr.io/gegoroffjedi
+          ports:
+          - containerPort: 80
